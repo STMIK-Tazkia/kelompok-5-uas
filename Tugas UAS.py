@@ -6,7 +6,7 @@ print("Perkiraan a star dalam game iggle pop")
 print("+"*22)
 print("\n")
 
-# Fungsi untuk menampilkan peta
+# Fungsi menampilkan peta
 def print_peta(peta, posisi_pemain, posisi_musuh, jalur):
     for i in range(len(peta)):
         row = []
@@ -24,7 +24,7 @@ def print_peta(peta, posisi_pemain, posisi_musuh, jalur):
         print(" ".join(row))
     print()
 
-# Fungsi A* untuk mencari jalur terpendek
+# Fungsi A* mencari jalur terpendek
 def a_star(peta, mulai, tujuan):
     h = lambda p: abs(p[0] - tujuan[0]) + abs(p[1] - tujuan[1])
     antrian, asal, biaya = [(h(mulai), mulai)], {}, {mulai: 0}
