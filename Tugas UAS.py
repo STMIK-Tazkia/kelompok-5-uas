@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 print("+"*22)
 print("Perkiraan a star dalam game iggle pop")
 print("+"*22)
+print("M = Musuh")
+print("P = Pemain")
+print(". = Jalan")
+print("* = Perkiraan Jalur musuh")
+print("+"*22)
 print("\n")
 
 # Fungsi menampilkan peta
@@ -73,7 +78,7 @@ def gerak_player(peta, posisi_pemain):
 # Fungsi untuk menggerakkan musuh (AI)
 def gerak_musuh(peta, posisi_musuh, posisi_pemain):
     jalur = a_star(peta, posisi_musuh, posisi_pemain)
-    if jalur:
+    if jalur and len(jalur) > 1:  # Memastikan jalur memiliki lebih dari satu titik
         return jalur[1]  # Musuh bergerak ke posisi berikutnya di jalur
     return posisi_musuh  # Jika tidak ada jalur, musuh tetap di tempat
 
