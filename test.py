@@ -48,6 +48,70 @@ def a_star(peta, mulai, tujuan):
     
     return None
 
+# Fungsi untuk menggerakkan pemain
+def gerak_player(peta, posisi_pemain):
+    print("Gerakan pemain: W (atas), A (kiri), S (bawah), D (kanan), O (keluar)")
+    gerakan = input("Masukkan gerakan (W/A/S/D/O): ").upper()
 
+    if gerakan == "O":  # Menekan O untuk keluar game
+        return "keluar"
+    
+    x, y = posisi_pemain
+
+    if gerakan == "W" and x > 0 and peta[x-1][y] != 1:  # Gerak atas
+        return (x-1, y)
+    elif gerakan == "S" and x < len(peta) - 1 and peta[x+1][y] != 1:  # Gerak bawah
+        return (x+1, y)
+    elif gerakan == "A" and y > 0 and peta[x][y-1] != 1:  # Gerak kiri
+        return (x, y-1)
+    elif gerakan == "D" and y < len(peta[0]) - 1 and peta[x][y+1] != 1:  # Gerak kanan
+        return (x, y+1)
+    else:
+        print("Gerakan tidak valid! Coba lagi.")
+        return posisi_pemain  # Jika gerakan tidak valid, posisi pemain tetap sama
+
+# Fungsi untuk menggerakkan musuh (AI)
+def gerak_musuh(peta, posisi_musuh, posisi_pemain):
+    jalur = a_star(peta, posisi_musuh, posisi_pemain)
+    if jalur:
+        return jalur[1]  # Musuh bergerak ke posisi berikutnya di jalur
+    return posisi_musuh  # Jika tidak ada jalur, musuh tetap di tempat
+
+# Fungsi utama
+def main():
+    # Peta: 0 = jalur kosong, 1 = rintangan (#)
+    peta = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 0, 0, 0]
+    ]
+
+    posisi_pemain = (4, 4)  # Posisi awal pemain
+    posisi_musuh = (0, 0)  # Posisi awal musuh
+
+    while True:
+        # Menampilkan peta dengan posisi pemain dan musuh
+        jalur = a_star(peta, posisi_pemain, posisi_musuh)
+        print_peta(peta, posisi_pemain, posisi_musuh, jalur if jalur else [])
+
+        # Menggerakkan pemain
+        posisi_pemain = gerak_player(peta, posisi_pemain)
+        
+        if posisi_pemain == "keluar":  # Jika pemain menekan O untuk keluar
+            print("Anda keluar dari permainan.")
+            break
+
+        # Menggerakkan musuh
+        posisi_musuh = gerak_musuh(peta, posisi_musuh, posisi_pemain)
+
+        # Cek apakah musuh menangkap pemain
+        if posisi_pemain == posisi_musuh:
+            print("GAME OVER! Musuh menangkapmu!")
+            break
+
+if _name_ == "_main_":
+    main()
 
 
