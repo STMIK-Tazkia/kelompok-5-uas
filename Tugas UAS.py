@@ -1,5 +1,4 @@
 import heapq
-import matplotlib.pyplot as plt
 
 print("+"*22)
 print("Perkiraan a star dalam game iggle pop")
@@ -118,5 +117,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
+    
